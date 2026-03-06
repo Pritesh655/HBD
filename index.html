@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        body {
+            background-color: #ffdce5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            transition: background-color 0.5s;
+        }
+        .hidden { display: none !important; }
+        
+        /* Screen 1: Tic Tac Toe */
+        #screen1 { text-align: center; }
+        h2 { color: #ff6b9e; font-size: 28px; }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 90px);
+            gap: 8px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .cell {
+            width: 90px;
+            height: 90px;
+            background: #fff4f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #ff6b9e;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .btn {
+            background: #ff6b9e;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 150px;
+        }
+
+        /* Screen 2: Victory */
+        #screen2 {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        #screen2 h1 { color: #ff6b9e; font-size: 32px; margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+
+    <div id="screen1">
+        <h2>Tic Tac Toe</h2>
+        <div class="board" id="board">
+            <div class="cell" onclick="makeMove(0)"></div><div class="cell" onclick="makeMove(1)"></div><div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div><div class="cell" onclick="makeMove(4)"></div><div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div><div class="cell" onclick="makeMove(7)"></div><div class="cell" onclick="makeMove(8)"></div>
+        </div>
+        <div class="btn-container">
+            <button class="btn" onclick="resetGame()">🔄 Restart</button>
+            <button class="btn hidden" id="nextBtn1" onclick="goToScreen2()">Next</button>
+        </div>
+    </div>
+
+    <div id="screen2" class="hidden">
+        <h1>You won! 💖</h1>
+        <div class="btn-container">
+            <button class="btn" onclick="location.reload()">Play Again</button>
+            <button class="btn" style="background: #4287f5;" onclick="alert('Next screens loading soon...')">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let gameOver = false;
+
+        function makeMove(index) {
+            if (board[index] !== "" || gameOver) return;
+            
+            // Player move
+            board[index] = "X";
+            document.getElementsByClassName("cell")[index].innerText = "X";
+            checkWin();
+
+            // Fake AI move (always lets player win)
+            if (!gameOver) {
+                setTimeout(() => {
+                    let empty = [];
+                    board.forEach((val, i) => { if (val === "") empty.push(i); });
+                    if (empty.length > 0) {
+                        let aiMove = empty[Math.floor(Math.random() * empty.length)];
+                        board[aiMove] = "O";
+                        document.getElementsByClassName("cell")[aiMove].innerText = "O";
+                        document.getElementsByClassName("cell")[aiMove].style.color = "#ffb3c6";
+                    }
+                }, 400);
+            }
+        }
+
+        function checkWin() {
+            // Player always wins after 3 moves for the surprise
+            let xCount = board.filter(val => val === "X").length;
+            if (xCount >= 3) {
+                gameOver = true;
+                document.getElementById("nextBtn1").classList.remove("hidden");
+            }
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            gameOver = false;
+            let cells = document.getElementsByClassName("cell");
+            for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
+            document.getElementById("nextBtn1").classList.add("hidden");
+        }
+
+        function goToScreen2() {
+            document.getElementById("screen1").classList.add("hidden");
+            document.getElementById("screen2").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
