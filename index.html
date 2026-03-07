@@ -73,8 +73,6 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
-
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
         <div class="board fade-up">
@@ -82,7 +80,7 @@
             <div class="cell" onclick="move(3)"></div><div class="cell" onclick="move(4)"></div><div class="cell" onclick="move(5)"></div>
             <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
         </div>
-        <button class="btn hidden" id="next1" onclick="startMusicAndShow(2); shootHearts();">Next</button>
+        <button class="btn hidden" id="next1" onclick="playClick(); show(2); shootHearts();">Next</button>
         <button class="btn btn-gray hidden" id="retryBtn" onclick="resetGame()">Try Again</button>
     </div>
 
@@ -165,7 +163,7 @@
     </div>
 
     <script>
-        // Premium Pop Sound
+        // Premium Pop Sound for Buttons
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -181,14 +179,15 @@
             } catch(e) {}
         }
 
-        // Tic Tac Toe Proper Logic
+        // REAL Tic Tac Toe Logic
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
+        // Exact winning lines (Rows, Columns, Diagonals)
         const winPatterns = [
-            [0,1,2], [3,4,5], [6,7,8], // Rows
-            [0,3,6], [1,4,7], [2,5,8], // Cols
-            [0,4,8], [2,4,6]           // Diagonals
+            [0,1,2], [3,4,5], [6,7,8], 
+            [0,3,6], [1,4,7], [2,5,8], 
+            [0,4,8], [2,4,6]           
         ];
 
         function checkWin(player) {
@@ -202,25 +201,29 @@
         }
 
         function move(i){
+            // Box pehle se bhara hai ya game over ho gaya toh kuch mat karo
             if(b[i] !== "" || gameOver) return; 
             playClick();
             
-            // Player Move
+            // Player Move (X)
             b[i] = "X"; 
             document.querySelectorAll('.cell')[i].innerText = "X";
             
+            // Agar tu sach mein jeeta, tabhi NEXT aayega
             if(checkWin("X")) {
                 gameOver = true;
                 document.getElementById('next1').classList.remove('hidden');
                 return;
             }
+            
+            // Agar draw ho gaya, toh TRY AGAIN aayega
             if(checkDraw()) {
                 gameOver = true;
                 document.getElementById('retryBtn').classList.remove('hidden');
                 return;
             }
             
-            // Computer Move
+            // Computer Move (O)
             setTimeout(() => {
                 let empty = [];
                 b.forEach((v, idx) => { if(v === "") empty.push(idx); });
@@ -232,14 +235,16 @@
                     c.innerText = "O";
                     c.style.color = "#ffb3c6";
                     
+                    // Agar Computer jeet gaya ya draw hua, TRY AGAIN aayega
                     if(checkWin("O") || checkDraw()) {
                         gameOver = true;
                         document.getElementById('retryBtn').classList.remove('hidden');
                     }
                 }
-            }, 300);
+            }, 400); // Thoda realistic delay
         }
 
+        // Restart Game
         function resetGame() {
             playClick();
             b = ["","","","","","","","",""];
@@ -259,20 +264,6 @@
                 document.body.appendChild(h);
                 setTimeout(() => h.remove(), 4000);
             }
-        }
-
-        // Music Trigger
-        let musicStarted = false;
-        function startMusicAndShow(s) {
-            playClick();
-            if(!musicStarted) {
-                let music = document.getElementById('bgMusic');
-                // Set volume slightly lower for aesthetic vibe
-                music.volume = 0.6;
-                music.play().catch(e => console.log("Audio waiting"));
-                musicStarted = true;
-            }
-            show(s);
         }
 
         // Navigation
@@ -303,10 +294,9 @@
             }
         }
 
-        // Gifts
+        // Gifts (No Background Audio Now)
         function openGift(giftNumber) {
             playClick(); 
-            if(!musicStarted) { document.getElementById('bgMusic').play(); musicStarted = true; }
             if(giftNumber === 1) show(7); 
             if(giftNumber === 2) show(8); 
             if(giftNumber === 3) show(9); 
