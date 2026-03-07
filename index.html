@@ -179,11 +179,11 @@
             } catch(e) {}
         }
 
-        // REAL Tic Tac Toe Logic
+        // REAL Tic Tac Toe Logic (No fake wins)
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
-        // Exact winning lines (Rows, Columns, Diagonals)
+        // Exact winning lines
         const winPatterns = [
             [0,1,2], [3,4,5], [6,7,8], 
             [0,3,6], [1,4,7], [2,5,8], 
@@ -201,7 +201,6 @@
         }
 
         function move(i){
-            // Box pehle se bhara hai ya game over ho gaya toh kuch mat karo
             if(b[i] !== "" || gameOver) return; 
             playClick();
             
@@ -209,14 +208,14 @@
             b[i] = "X"; 
             document.querySelectorAll('.cell')[i].innerText = "X";
             
-            // Agar tu sach mein jeeta, tabhi NEXT aayega
+            // Check if X really won
             if(checkWin("X")) {
                 gameOver = true;
                 document.getElementById('next1').classList.remove('hidden');
                 return;
             }
             
-            // Agar draw ho gaya, toh TRY AGAIN aayega
+            // Check Draw
             if(checkDraw()) {
                 gameOver = true;
                 document.getElementById('retryBtn').classList.remove('hidden');
@@ -235,13 +234,12 @@
                     c.innerText = "O";
                     c.style.color = "#ffb3c6";
                     
-                    // Agar Computer jeet gaya ya draw hua, TRY AGAIN aayega
                     if(checkWin("O") || checkDraw()) {
                         gameOver = true;
                         document.getElementById('retryBtn').classList.remove('hidden');
                     }
                 }
-            }, 400); // Thoda realistic delay
+            }, 400); 
         }
 
         // Restart Game
@@ -290,11 +288,11 @@
             } else if(s==7) {
                 document.body.style.backgroundImage = "url('bg_cam1.jpg')";
             } else if(s==11) {
-                document.body.classList.add('red-bg'); // Dark Red background for Cam 2!
+                document.body.classList.add('red-bg'); 
             }
         }
 
-        // Gifts (No Background Audio Now)
+        // Gifts (Completely stripped of music logic)
         function openGift(giftNumber) {
             playClick(); 
             if(giftNumber === 1) show(7); 
@@ -310,4 +308,5 @@
         }
     </script>
 </body>
-</html>
+                </html>
+                
