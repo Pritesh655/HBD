@@ -50,11 +50,11 @@
         .btn-white { background: #ffffff; color: #000; }
         .btn-gray { background: #888; color: white; padding: 15px 25px; font-size: 16px; margin-top: 20px; }
 
-        /* Tic Tac Toe */
-        .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
-        .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
-        .win-cell { text-decoration: line-through; text-decoration-thickness: 6px; text-decoration-color: #ff3b7c; color: #ff3b7c !important; transform: scale(1.05); }
-
+        /* Tic Tac Toe Grid with Relative Position for Drawing Line */
+        .board-container { position: relative; margin: 0 auto 20px auto; width: fit-content; }
+        .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; }
+        .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 55px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: sans-serif; }
+        
         /* Gift Grid (Numbers) */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
         .gift-wrapper { text-align: center; }
@@ -63,7 +63,7 @@
         .gift-number { font-size: 20px; font-weight: bold; color: #ff6b9e; margin-top: 10px; background: white; border-radius: 50%; width: 35px; height: 35px; line-height: 35px; margin-left: auto; margin-right: auto; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* BADA POLAROID & VINYL (CD SIZE INCREASED) */
+        /* BADA POLAROID & VINYL */
         .slider-container { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px; width: 95%; max-width: 500px; }
         .polaroid-img { width: 100%; border-radius: 8px; position: relative; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         .vinyl { width: 60%; position: absolute; right: -25%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; opacity: 0.95; }
@@ -78,10 +78,15 @@
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
-        <div class="board fade-up">
-            <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
-            <div class="cell" onclick="move(3)"></div><div class="cell" onclick="move(4)"></div><div class="cell" onclick="move(5)"></div>
-            <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
+        <div class="board-container fade-up">
+            <div class="board">
+                <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
+                <div class="cell" onclick="move(3)"></div><div class="cell" onclick="move(4)"></div><div class="cell" onclick="move(5)"></div>
+                <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
+            </div>
+            <svg id="win-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; display:none; z-index: 10;">
+                <line id="win-line" x1="0" y1="0" x2="0" y2="0" stroke="#ff3b7c" stroke-width="8" stroke-linecap="round"/>
+            </svg>
         </div>
         <button class="btn hidden" id="next1" onclick="playClick(); show(2); shootHearts();">Next</button>
         <button class="btn btn-gray hidden" id="retryBtn" onclick="resetGame()">Try Again</button>
@@ -196,10 +201,22 @@
             } catch(e) {}
         }
 
-        // Tic Tac Toe Logic with Winning Line
+        // Tic Tac Toe Logic with Precise SVG Line Drawing
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
+        // Winning patterns mapped to exact drawing coordinates (x1, y1, x2, y2)
+        const lineCoords = {
+            '0,1,2': {x1:'10%', y1:'18.75%', x2:'90%', y2:'18.75%'},
+            '3,4,5': {x1:'10%', y1:'50%', x2:'90%', y2:'50%'},
+            '6,7,8': {x1:'10%', y1:'81.25%', x2:'90%', y2:'81.25%'},
+            '0,3,6': {x1:'18.75%', y1:'10%', x2:'18.75%', y2:'90%'},
+            '1,4,7': {x1:'50%', y1:'10%', x2:'50%', y2:'90%'},
+            '2,5,8': {x1:'81.25%', y1:'10%', x2:'81.25%', y2:'90%'},
+            '0,4,8': {x1:'10%', y1:'10%', x2:'90%', y2:'90%'},
+            '2,4,6': {x1:'90%', y1:'10%', x2:'10%', y2:'90%'}
+        };
+
         const winPatterns = [
             [0,1,2], [3,4,5], [6,7,8], 
             [0,3,6], [1,4,7], [2,5,8], 
@@ -209,10 +226,18 @@
         function checkWin(player) {
             for(let pattern of winPatterns) {
                 if(b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player) {
-                    // Winning line (strike-through) animation apply kar raha hoon
-                    document.querySelectorAll('.cell')[pattern[0]].classList.add('win-cell');
-                    document.querySelectorAll('.cell')[pattern[1]].classList.add('win-cell');
-                    document.querySelectorAll('.cell')[pattern[2]].classList.add('win-cell');
+                    // Draw the magic continuous line
+                    let key = pattern.join(',');
+                    let coords = lineCoords[key];
+                    let svg = document.getElementById('win-svg');
+                    let line = document.getElementById('win-line');
+                    
+                    line.setAttribute('x1', coords.x1);
+                    line.setAttribute('y1', coords.y1);
+                    line.setAttribute('x2', coords.x2);
+                    line.setAttribute('y2', coords.y2);
+                    svg.style.display = 'block';
+                    
                     return true;
                 }
             }
@@ -232,6 +257,7 @@
             
             if(checkWin("X")) {
                 gameOver = true;
+                // Line draw hone ke baad hi Next aayega
                 setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 400);
                 return;
             }
@@ -242,7 +268,7 @@
                 return;
             }
             
-            // Computer Move
+            // EASY Computer Move
             setTimeout(() => {
                 let empty = [];
                 b.forEach((v, idx) => { if(v === "") empty.push(idx); });
@@ -269,8 +295,9 @@
             document.querySelectorAll('.cell').forEach(c => { 
                 c.innerText = ""; 
                 c.style.color = "#ff6b9e"; 
-                c.classList.remove('win-cell'); // reset winning line
             });
+            // Reset Line
+            document.getElementById('win-svg').style.display = 'none';
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
             show(1);
@@ -316,7 +343,7 @@
             }
         }
 
-        // Gifts 
+        // Gifts (Simple Click Audio Only)
         function openGift(giftNumber) {
             playClick(); 
             if(giftNumber === 1) show(7); 
@@ -332,5 +359,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
