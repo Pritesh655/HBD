@@ -20,6 +20,7 @@
             overflow-y: auto;   
         }
         .black-bg { background: #050505 !important; background-image: none !important; color: white !important; }
+        .red-bg { background: #5c0011 !important; background-image: none !important; color: white !important; }
         .hidden { display: none !important; }
         
         /* Screens Base */
@@ -37,15 +38,17 @@
         h2 { color: #ff6b9e; font-size: 28px; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); }
         p { font-size: 16px; line-height: 1.6; }
         
-        .cursive-wish { font-family: 'Great Vibes', cursive; font-size: 48px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-top: 15px; margin-bottom: 10px; }
+        .cursive-wish { font-family: 'Great Vibes', cursive; font-size: 55px; color: #ffffff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-top: 0px; margin-bottom: 20px; }
+        .golden-wish { font-family: 'Great Vibes', cursive; font-size: 50px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-top: 15px; margin-bottom: 10px; }
         
         img.main-media { max-width: 90%; border-radius: 15px; margin-top: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: zoomIn 0.8s ease-out; }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .btn { background: #ff6b9e; color: white; padding: 15px 35px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 30px; box-shadow: 0 6px 10px rgba(0,0,0,0.2); transition: transform 0.1s; }
+        .btn { background: #ff6b9e; color: white; padding: 15px 35px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 6px 10px rgba(0,0,0,0.2); transition: transform 0.1s; }
         .btn:active { transform: scale(0.9); }
         .btn-blue { background: #4287f5; }
         .btn-white { background: #ffffff; color: #000; }
+        .btn-gray { background: #888; margin-top: 10px; padding: 10px 25px; font-size: 15px; }
 
         /* Tic Tac Toe */
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
@@ -70,7 +73,7 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto"><source src="hbd.mp3" type="audio/mpeg"></audio>
+    <audio id="bgMusic" loop preload="auto"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
@@ -80,6 +83,7 @@
             <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
         </div>
         <button class="btn hidden" id="next1" onclick="startMusicAndShow(2); shootHearts();">Next</button>
+        <button class="btn btn-gray hidden" id="retryBtn" onclick="resetGame()">Try Again</button>
     </div>
 
     <div id="screen2" class="screen hidden">
@@ -143,16 +147,17 @@
 
     <div id="screen10" class="screen hidden">
         <img src="cake_off.png" class="main-media" style="max-width:250px; opacity:0.9;">
-        <h1 class="fade-up cursive-wish">Happy Birthday</h1>
+        <h1 class="fade-up golden-wish">Happy Birthday</h1>
         <p class="fade-up" style="font-size:16px; line-height:1.7; color:#ccc; padding: 0 20px; text-align: center;">
             Happy Birthday, Kavya 🎀!<br><br>
-            Wishing you all the success, happiness, and good vibes this year. Keep smiling, keep shining, and party hard today. Have the most amazing day ever!
+            You bring so much light and happiness into my world. Wishing you a year filled with endless laughter, success, and everything your heart desires. I'll always be here cheering for you, today and forever. Have the most magical day!
         </p>
         <button class="btn btn-white fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
     </div>
 
-    <div id="screen11" class="screen hidden" style="justify-content: flex-start; padding-top: 150px;">
-        <div class="slider-container fade-up">
+    <div id="screen11" class="screen hidden" style="justify-content: flex-start; padding-top: 60px;">
+        <h1 class="cursive-wish fade-up">Happy Birthday!</h1>
+        <div class="slider-container fade-up" style="margin-top: 0;">
             <img src="vinyl.png" class="vinyl" onerror="this.style.display='none'">
             <img src="cam2.png" class="polaroid-img" onerror="this.src='cam2.jpg'">
         </div>
@@ -160,7 +165,7 @@
     </div>
 
     <script>
-        // Normal Button Click Sound (Pop)
+        // Premium Pop Sound
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -168,62 +173,83 @@
                 let gain = audioCtx.createGain();
                 osc.connect(gain); gain.connect(audioCtx.destination);
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
                 osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.1);
             } catch(e) {}
         }
 
-        // Special Gift Click Sound (Magical Chime)
-        function playGiftSound() {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.type = 'triangle'; 
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
-            } catch(e) {}
-        }
-
-        // Tic Tac Toe Logic Fixed
+        // Tic Tac Toe Proper Logic
         let b = ["","","","","","","","",""];
-        let xCount = 0;
         let gameOver = false;
         
+        const winPatterns = [
+            [0,1,2], [3,4,5], [6,7,8], // Rows
+            [0,3,6], [1,4,7], [2,5,8], // Cols
+            [0,4,8], [2,4,6]           // Diagonals
+        ];
+
+        function checkWin(player) {
+            return winPatterns.some(pattern => 
+                b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player
+            );
+        }
+
+        function checkDraw() {
+            return b.every(cell => cell !== "");
+        }
+
         function move(i){
-            if(b[i]!="" || gameOver) return; 
+            if(b[i] !== "" || gameOver) return; 
             playClick();
             
-            b[i]="X"; 
-            document.querySelectorAll('.cell')[i].innerText="X";
-            xCount++;
+            // Player Move
+            b[i] = "X"; 
+            document.querySelectorAll('.cell')[i].innerText = "X";
             
-            if(xCount >= 3) {
+            if(checkWin("X")) {
                 gameOver = true;
                 document.getElementById('next1').classList.remove('hidden');
                 return;
             }
+            if(checkDraw()) {
+                gameOver = true;
+                document.getElementById('retryBtn').classList.remove('hidden');
+                return;
+            }
             
+            // Computer Move
             setTimeout(() => {
                 let empty = [];
-                b.forEach((v, idx) => { if(v==="") empty.push(idx); });
+                b.forEach((v, idx) => { if(v === "") empty.push(idx); });
+                
                 if(empty.length > 0) {
-                    let ai = empty[Math.floor(Math.random()*empty.length)];
+                    let ai = empty[Math.floor(Math.random() * empty.length)];
                     b[ai] = "O";
                     let c = document.querySelectorAll('.cell')[ai];
                     c.innerText = "O";
                     c.style.color = "#ffb3c6";
+                    
+                    if(checkWin("O") || checkDraw()) {
+                        gameOver = true;
+                        document.getElementById('retryBtn').classList.remove('hidden');
+                    }
                 }
             }, 300);
         }
 
-        // Heart Confetti Logic
+        function resetGame() {
+            playClick();
+            b = ["","","","","","","","",""];
+            gameOver = false;
+            document.querySelectorAll('.cell').forEach(c => { c.innerText = ""; c.style.color = "#ff6b9e"; });
+            document.getElementById('next1').classList.add('hidden');
+            document.getElementById('retryBtn').classList.add('hidden');
+        }
+
+        // Heart Confetti
         function shootHearts() {
             for(let i=0; i<20; i++){
                 let h = document.createElement('div');
@@ -235,19 +261,21 @@
             }
         }
 
-        // Music Fix - Starts on first interaction
+        // Music Trigger
         let musicStarted = false;
         function startMusicAndShow(s) {
             playClick();
             if(!musicStarted) {
                 let music = document.getElementById('bgMusic');
-                music.play().catch(e => console.log("Audio waiting for stronger interaction"));
+                // Set volume slightly lower for aesthetic vibe
+                music.volume = 0.6;
+                music.play().catch(e => console.log("Audio waiting"));
                 musicStarted = true;
             }
             show(s);
         }
 
-        // Navigation Engine & Background Changer
+        // Navigation
         function show(s){
             document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
             
@@ -260,32 +288,25 @@
                 el.style.animation = null; 
             });
 
-            // Scroll to top
             window.scrollTo(0, 0);
 
-            // Reset Background
+            // Background Logic
             document.body.className = '';
             document.body.style.backgroundImage = "url('bg.gif')";
 
-            // Conditional Backgrounds
             if(s==9 || s==10) {
                 document.body.classList.add('black-bg');
             } else if(s==7) {
                 document.body.style.backgroundImage = "url('bg_cam1.jpg')";
             } else if(s==11) {
-                document.body.style.backgroundImage = "url('bg_cam2.jpg')";
+                document.body.classList.add('red-bg'); // Dark Red background for Cam 2!
             }
         }
 
-        // Gift Routing Logic
+        // Gifts
         function openGift(giftNumber) {
-            playGiftSound(); // New Magical Sound
-            
-            if(!musicStarted) { 
-                document.getElementById('bgMusic').play(); 
-                musicStarted = true; 
-            }
-            
+            playClick(); 
+            if(!musicStarted) { document.getElementById('bgMusic').play(); musicStarted = true; }
             if(giftNumber === 1) show(7); 
             if(giftNumber === 2) show(8); 
             if(giftNumber === 3) show(9); 
