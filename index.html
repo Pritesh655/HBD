@@ -54,10 +54,12 @@
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
         .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; }
 
-        /* Gift Grid */
+        /* Gift Grid (Now with Numbers) */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
+        .gift-wrapper { text-align: center; }
         .gift-box { width: 130px; border-radius: 10px; cursor: pointer; transition: transform 0.2s; animation: pulse 2s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .gift-box:active { transform: scale(0.8); }
+        .gift-number { font-size: 20px; font-weight: bold; color: #ff6b9e; margin-top: 10px; background: white; border-radius: 50%; width: 35px; height: 35px; line-height: 35px; margin-left: auto; margin-right: auto; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
         /* BADA POLAROID & VINYL */
@@ -116,13 +118,25 @@
     </div>
 
     <div id="screen6" class="screen hidden">
-        <h2 class="fade-up" style="color:#4287f5; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px;">GIFT FOR YOU</h2>
-        <p class="fade-up" style="background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: bold; color: #333;">CLICK ANY GIFT TO OPEN</p>
+        <h2 class="fade-up" style="color:#4287f5; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px;">GIFTS FOR YOU</h2>
+        <p class="fade-up" style="background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: bold; color: #e63946;">OPEN THEM IN ORDER (1 TO 4) 👇</p>
         <div class="gift-grid fade-up">
-            <img class="gift-box" src="gift.jpg" onclick="openGift(1)">
-            <img class="gift-box" src="gift.jpg" onclick="openGift(2)">
-            <img class="gift-box" src="gift.jpg" onclick="openGift(3)">
-            <img class="gift-box" src="gift.jpg" onclick="openGift(4)">
+            <div class="gift-wrapper" onclick="openGift(1)">
+                <img class="gift-box" src="gift.jpg">
+                <div class="gift-number">1</div>
+            </div>
+            <div class="gift-wrapper" onclick="openGift(2)">
+                <img class="gift-box" src="gift.jpg">
+                <div class="gift-number">2</div>
+            </div>
+            <div class="gift-wrapper" onclick="openGift(3)">
+                <img class="gift-box" src="gift.jpg">
+                <div class="gift-number">3</div>
+            </div>
+            <div class="gift-wrapper" onclick="openGift(4)">
+                <img class="gift-box" src="gift.jpg">
+                <div class="gift-number">4</div>
+            </div>
         </div>
     </div>
 
@@ -248,7 +262,7 @@
             document.querySelectorAll('.cell').forEach(c => { c.innerText = ""; c.style.color = "#ff6b9e"; });
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
-            show(1); // Go back to game screen if triggered from Won screen
+            show(1); // Go back to game screen
         }
 
         // Heart Confetti
@@ -291,7 +305,7 @@
             }
         }
 
-        // Gifts (All using normal playClick sound)
+        // Gifts 
         function openGift(giftNumber) {
             playClick(); 
             if(giftNumber === 1) show(7); 
