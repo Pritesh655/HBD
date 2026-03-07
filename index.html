@@ -3,191 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You</title>
+    <title>For Kavya 💖</title>
     <style>
-        body {
-            background-color: #ffdce5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            transition: background-color 0.5s;
-            overflow: hidden;
-        }
+        body { background-color: #ffdce5; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Arial', sans-serif; transition: background-color 0.5s; overflow: hidden; }
         .hidden { display: none !important; }
         .screen { text-align: center; width: 100%; padding: 20px; box-sizing: border-box; }
+        h1 { color: #ff6b9e; font-size: 32px; margin-bottom: 20px; }
+        h2 { color: #ff6b9e; font-size: 26px; }
+        img { max-width: 85%; border-radius: 15px; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn { background: #ff6b9e; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         
-        /* Typography */
-        h1 { color: #ff6b9e; font-size: 32px; margin-bottom: 20px;}
-        h2 { color: #ff6b9e; font-size: 28px; }
-        
-        /* Buttons */
-        .btn-container { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 20px;}
-        .btn-row { display: flex; gap: 15px; justify-content: center; margin-top: 20px;}
-        .btn {
-            background: #ff6b9e;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 150px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-blue { background: #4287f5; }
-        
-        /* Images */
-        img { max-width: 80%; border-radius: 15px; margin-top: 10px; }
+        /* Tic Tac Toe Grid */
+        .board { display: grid; grid-template-columns: repeat(3, 85px); gap: 8px; background: white; padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
+        .cell { width: 85px; height: 85px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 35px; color: #ff6b9e; font-weight: bold; border-radius: 10px; }
 
-        /* Screen 1: Tic Tac Toe */
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 90px);
-            gap: 8px;
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin: 0 auto 20px auto;
-            width: fit-content;
-        }
-        .cell {
-            width: 90px;
-            height: 90px;
-            background: #fff4f7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: #ff6b9e;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 10px;
-        }
+        /* Gift Grid */
+        .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 300px; margin: 0 auto; }
+        .gift-box { cursor: pointer; transition: transform 0.2s; }
+        .gift-box:active { transform: scale(0.9); }
 
-        /* Screen 2: Victory Popup */
-        #screen2 .popup {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: inline-block;
-        }
+        /* Photo Slider */
+        #slider-img { width: 280px; height: 350px; object-fit: cover; border: 8px solid white; }
+
+        /* Cake Screen */
+        #cake-container { position: relative; display: inline-block; }
+        .cake-btn { background: #fff; color: #333; padding: 10px 25px; border-radius: 5px; font-weight: bold; margin-top: 15px; }
     </style>
 </head>
 <body>
 
+    <audio id="myAudio" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
     <div id="screen1" class="screen">
         <h2>Tic Tac Toe</h2>
-        <div class="board" id="board">
-            <div class="cell" onclick="makeMove(0)"></div><div class="cell" onclick="makeMove(1)"></div><div class="cell" onclick="makeMove(2)"></div>
-            <div class="cell" onclick="makeMove(3)"></div><div class="cell" onclick="makeMove(4)"></div><div class="cell" onclick="makeMove(5)"></div>
-            <div class="cell" onclick="makeMove(6)"></div><div class="cell" onclick="makeMove(7)"></div><div class="cell" onclick="makeMove(8)"></div>
+        <div class="board">
+            <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
+            <div class="cell" onclick="move(3)"></div><div class="cell" onclick="move(4)"></div><div class="cell" onclick="move(5)"></div>
+            <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
         </div>
-        <div class="btn-container">
-            <button class="btn" onclick="resetGame()">🔄 Restart</button>
-            <button class="btn hidden" id="nextBtn1" onclick="goToScreen2()">Next</button>
-        </div>
+        <button class="btn hidden" id="next1" onclick="show(2)">Next</button>
     </div>
 
     <div id="screen2" class="screen hidden">
-        <div class="popup">
+        <div style="background:white; padding:30px; border-radius:20px; display:inline-block;">
             <h1>You won! 💖</h1>
-            <div class="btn-container">
-                <button class="btn" onclick="location.reload()">Play Again</button>
-                <button class="btn btn-blue" onclick="goToScreen3()">Next</button>
-            </div>
+            <button class="btn" style="background:#4287f5;" onclick="show(3)">Next</button>
         </div>
     </div>
 
     <div id="screen3" class="screen hidden">
-        <h1 style="color:#4287f5; font-size:40px;">Happy<br>BIRTHDAY</h1>
-        <img src="https://c.tenor.com/bI0a2TXX1t8AAAAC/tenor.gif" alt="Birthday GIF">
-        <div class="btn-container" style="align-items: flex-end; width: 90%; margin: 20px auto;">
-            <button class="btn btn-blue" style="width: 100px;" onclick="goToScreen4()">NEXT</button>
-        </div>
+        <h1 style="color:#4287f5;">Happy<br>BIRTHDAY</h1>
+        <img src="gif1.gif">
+        <div style="text-align:right; margin-top:20px;"><button class="btn" style="background:#4287f5; width:100px;" onclick="show(4)">NEXT</button></div>
     </div>
 
     <div id="screen4" class="screen hidden">
         <h2>Are you ready<br>for surprise?</h2>
-        <img src="https://c.tenor.com/O1Z4O2nC5xEAAAAC/tenor.gif" alt="Cute Waiting">
-        <div class="btn-row">
-            <button class="btn" style="width: 100px;" onclick="goToScreen6()">YES</button>
-            <button class="btn" style="width: 100px;" onclick="goToScreen5()">NO</button>
+        <img src="gif2.gif">
+        <div style="display:flex; gap:15px; justify-content:center;">
+            <button class="btn" onclick="show(6)">YES</button>
+            <button class="btn" onclick="show(5)">NO</button>
         </div>
     </div>
 
     <div id="screen5" class="screen hidden">
-        <h2>HOW DARE YOU!</h2>
-        <img src="https://c.tenor.com/r_eCunNlM_MAAAAi/tenor.gif" alt="Angry Bunny">
-        <div class="btn-container">
-            <button class="btn" onclick="goToScreen4()">TRY AGAIN</button>
+        <h2>HOW DARE YOU!! 😒</h2>
+        <img src="gif3.gif">
+        <button class="btn" onclick="show(4)">TRY AGAIN</button>
+    </div>
+
+    <div id="screen6" class="screen hidden">
+        <h2 style="color:#4287f5;">GIFT FOR YOU</h2>
+        <p>CLICK ANY GIFT TO OPEN</p>
+        <div class="gift-grid">
+            <div class="gift-box" onclick="startSurprise()"><img src="gif4.gif"></div>
+            <div class="gift-box" onclick="startSurprise()"><img src="gif4.gif"></div>
+            <div class="gift-box" onclick="startSurprise()"><img src="gif4.gif"></div>
+            <div class="gift-box" onclick="startSurprise()"><img src="gif4.gif"></div>
+        </div>
+    </div>
+
+    <div id="screen7" class="screen hidden">
+        <img id="slider-img" src="1.jpg">
+        <br>
+        <button class="btn" id="slider-next" onclick="nextPhoto()">NEXT</button>
+    </div>
+
+    <div id="screen8" class="screen hidden">
+        <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; color:white; text-align:left;">
+            <p style="max-width:200px; font-size:18px;">Here's your virtual cake... Blow your candle and make your wish</p>
+            <div id="cake-container">
+                <img id="cake-pic" src="https://i.postimg.com/0237m9S1/cake-lit.png" style="width:200px;">
+                <br><button id="blow-btn" class="cake-btn" onclick="blow()">BLOW</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen9" class="screen hidden">
+        <div style="color:white; padding:20px;">
+            <h1 style="color:#ffd700;">Happy Birthday</h1>
+            <p style="font-size:18px; line-height:1.6;">Happy Birthday, Kavya! Wishing you all the success and happiness you deserve. Have an amazing day! 💖</p>
+            <button class="btn" onclick="location.reload()">BACK</button>
         </div>
     </div>
 
     <script>
-        // TIC TAC TOE LOGIC
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let gameOver = false;
-
-        function makeMove(index) {
-            if (board[index] !== "" || gameOver) return;
-            board[index] = "X";
-            document.getElementsByClassName("cell")[index].innerText = "X";
-            checkWin();
-            if (!gameOver) {
-                setTimeout(() => {
-                    let empty = [];
-                    board.forEach((val, i) => { if (val === "") empty.push(i); });
-                    if (empty.length > 0) {
-                        let aiMove = empty[Math.floor(Math.random() * empty.length)];
-                        board[aiMove] = "O";
-                        document.getElementsByClassName("cell")[aiMove].innerText = "O";
-                        document.getElementsByClassName("cell")[aiMove].style.color = "#ffb3c6";
-                    }
-                }, 400);
-            }
+        let b = ["","","","","","","","",""];
+        function move(i){
+            if(b[i]!="") return; b[i]="X"; document.querySelectorAll('.cell')[i].innerText="X";
+            if(b.filter(x=>x=="X").length>=3){ document.getElementById('next1').classList.remove('hidden'); }
         }
-
-        function checkWin() {
-            let xCount = board.filter(val => val === "X").length;
-            if (xCount >= 3) {
-                gameOver = true;
-                document.getElementById("nextBtn1").classList.remove("hidden");
-            }
+        function show(s){
+            document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
+            document.getElementById('screen'+s).classList.remove('hidden');
+            if(s==3) document.body.style.backgroundColor="#e6f2ff";
+            if(s==4) document.body.style.backgroundColor="#ffdce5";
+            if(s==6) document.body.style.backgroundColor="#e6f2ff";
+            if(s==8 || s==9) document.body.style.backgroundColor="black";
         }
-
-        function resetGame() {
-            board = ["", "", "", "", "", "", "", "", ""];
-            gameOver = false;
-            let cells = document.getElementsByClassName("cell");
-            for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
-            document.getElementById("nextBtn1").classList.add("hidden");
+        function startSurprise(){ document.getElementById('myAudio').play(); show(7); }
+        let p = 1;
+        function nextPhoto(){
+            p++; if(p>4){ show(8); return; }
+            document.getElementById('slider-img').src = p + ".jpg";
         }
-
-        // NAVIGATION LOGIC
-        function hideAll() {
-            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        function blow(){
+            document.getElementById('cake-pic').src = "https://i.postimg.com/pL6m9yv9/cake-off.png";
+            document.getElementById('blow-btn').innerText = "BACK";
+            setTimeout(()=> show(9), 1000);
         }
-
-        function goToScreen2() { hideAll(); document.getElementById("screen2").classList.remove("hidden"); }
-        function goToScreen3() { 
-            hideAll(); 
-            document.getElementById("screen3").classList.remove("hidden"); 
-            document.body.style.backgroundColor = "#e6f2ff"; // Light blue background
-        }
-        function goToScreen4() { 
-            hideAll(); 
-            document.getElementById("screen4").classList.remove("hidden"); 
-            document.body.style.backgroundColor = "#ffdce5"; // Back to pink
-        }
-        function goToScreen5() { hideAll(); document.getElementById("screen5").classList.remove("hidden"); }
-        function goToScreen6() { alert("Gifts aur Cake wali screen abhi main bana raha hoon..."); }
     </script>
 </body>
 </html>
