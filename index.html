@@ -48,7 +48,7 @@
         .btn:active { transform: scale(0.9); }
         .btn-blue { background: #4287f5; }
         .btn-white { background: #ffffff; color: #000; }
-        .btn-gray { background: #888; margin-top: 10px; padding: 10px 25px; font-size: 15px; }
+        .btn-gray { background: #888; color: white; padding: 15px 25px; font-size: 16px; margin-top: 20px; }
 
         /* Tic Tac Toe */
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
@@ -87,7 +87,10 @@
     <div id="screen2" class="screen hidden">
         <div style="background:rgba(255,255,255,0.95); padding:40px; border-radius:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" class="fade-up">
             <h1 style="text-shadow: none;">You won! 💖</h1>
-            <button class="btn btn-blue" onclick="playClick(); show(3)">Next</button>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-gray" onclick="resetGame()">Try Again</button>
+                <button class="btn btn-blue" onclick="playClick(); show(3)">Next</button>
+            </div>
         </div>
     </div>
 
@@ -163,7 +166,7 @@
     </div>
 
     <script>
-        // Normal Pop Sound (Puraana wala best sound)
+        // Universal Normal Pop Sound
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -178,23 +181,7 @@
             } catch(e) {}
         }
 
-        // Magical Ting Sound (Sirf Gifts ke liye)
-        function playGiftSound() {
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.type = 'triangle'; 
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
-            } catch(e) {}
-        }
-
-        // SMART Tic Tac Toe Logic
+        // EASY Tic Tac Toe Logic
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
@@ -212,17 +199,6 @@
 
         function checkDraw() {
             return b.every(cell => cell !== "");
-        }
-
-        // Computer Ka Dimaag (AI Logic)
-        function getBestMove(player) {
-            for(let p of winPatterns) {
-                let [x, y, z] = p;
-                if(b[x]===player && b[y]===player && b[z]==="") return z;
-                if(b[x]===player && b[z]===player && b[y]==="") return y;
-                if(b[y]===player && b[z]===player && b[x]==="") return x;
-            }
-            return -1;
         }
 
         function move(i){
@@ -245,26 +221,13 @@
                 return;
             }
             
-            // Computer Move (O) with Smart Brain
+            // EASY Computer Move (Random placement)
             setTimeout(() => {
-                let ai = getBestMove("O"); // 1. Pehle dekho jeet sakte hain kya?
+                let empty = [];
+                b.forEach((v, idx) => { if(v === "") empty.push(idx); });
                 
-                if(ai === -1) {
-                    ai = getBestMove("X"); // 2. Agar nahi, toh dekho player ko block kar sakte hain kya?
-                }
-                
-                if(ai === -1 && b[4] === "") {
-                    ai = 4; // 3. Agar kuch samajh na aaye toh beech wala box le lo
-                }
-                
-                if(ai === -1) {
-                    // 4. Aakhri rasta: Bachi hui jagah me se koi random box le lo
-                    let empty = [];
-                    b.forEach((v, idx) => { if(v === "") empty.push(idx); });
-                    ai = empty[Math.floor(Math.random() * empty.length)];
-                }
-
-                if(ai !== -1) {
+                if(empty.length > 0) {
+                    let ai = empty[Math.floor(Math.random() * empty.length)];
                     b[ai] = "O";
                     let c = document.querySelectorAll('.cell')[ai];
                     c.innerText = "O";
@@ -285,6 +248,7 @@
             document.querySelectorAll('.cell').forEach(c => { c.innerText = ""; c.style.color = "#ff6b9e"; });
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
+            show(1); // Go back to game screen if triggered from Won screen
         }
 
         // Heart Confetti
@@ -327,9 +291,9 @@
             }
         }
 
-        // Gifts (No Music, Magical Ting Sound)
+        // Gifts (All using normal playClick sound)
         function openGift(giftNumber) {
-            playGiftSound(); 
+            playClick(); 
             if(giftNumber === 1) show(7); 
             if(giftNumber === 2) show(8); 
             if(giftNumber === 3) show(9); 
