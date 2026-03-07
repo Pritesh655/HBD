@@ -52,9 +52,10 @@
 
         /* Tic Tac Toe */
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; margin: 0 auto 20px auto; width: fit-content; }
-        .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; }
+        .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .win-cell { text-decoration: line-through; text-decoration-thickness: 6px; text-decoration-color: #ff3b7c; color: #ff3b7c !important; transform: scale(1.05); }
 
-        /* Gift Grid (Now with Numbers) */
+        /* Gift Grid (Numbers) */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
         .gift-wrapper { text-align: center; }
         .gift-box { width: 130px; border-radius: 10px; cursor: pointer; transition: transform 0.2s; animation: pulse 2s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -62,10 +63,10 @@
         .gift-number { font-size: 20px; font-weight: bold; color: #ff6b9e; margin-top: 10px; background: white; border-radius: 50%; width: 35px; height: 35px; line-height: 35px; margin-left: auto; margin-right: auto; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* BADA POLAROID & VINYL */
+        /* BADA POLAROID & VINYL (CD SIZE INCREASED) */
         .slider-container { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px; width: 95%; max-width: 500px; }
         .polaroid-img { width: 100%; border-radius: 8px; position: relative; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-        .vinyl { width: 45%; position: absolute; right: -15%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; opacity: 0.95; }
+        .vinyl { width: 60%; position: absolute; right: -25%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; opacity: 0.95; }
         @keyframes spin { 100% { transform: translateY(-50%) rotate(360deg); } }
 
         /* Hearts Confetti */
@@ -195,7 +196,7 @@
             } catch(e) {}
         }
 
-        // EASY Tic Tac Toe Logic
+        // Tic Tac Toe Logic with Winning Line
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
@@ -206,9 +207,16 @@
         ];
 
         function checkWin(player) {
-            return winPatterns.some(pattern => 
-                b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player
-            );
+            for(let pattern of winPatterns) {
+                if(b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player) {
+                    // Winning line (strike-through) animation apply kar raha hoon
+                    document.querySelectorAll('.cell')[pattern[0]].classList.add('win-cell');
+                    document.querySelectorAll('.cell')[pattern[1]].classList.add('win-cell');
+                    document.querySelectorAll('.cell')[pattern[2]].classList.add('win-cell');
+                    return true;
+                }
+            }
+            return false;
         }
 
         function checkDraw() {
@@ -219,13 +227,12 @@
             if(b[i] !== "" || gameOver) return; 
             playClick();
             
-            // Player Move (X)
             b[i] = "X"; 
             document.querySelectorAll('.cell')[i].innerText = "X";
             
             if(checkWin("X")) {
                 gameOver = true;
-                document.getElementById('next1').classList.remove('hidden');
+                setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 400);
                 return;
             }
             
@@ -235,7 +242,7 @@
                 return;
             }
             
-            // EASY Computer Move (Random placement)
+            // Computer Move
             setTimeout(() => {
                 let empty = [];
                 b.forEach((v, idx) => { if(v === "") empty.push(idx); });
@@ -259,10 +266,14 @@
             playClick();
             b = ["","","","","","","","",""];
             gameOver = false;
-            document.querySelectorAll('.cell').forEach(c => { c.innerText = ""; c.style.color = "#ff6b9e"; });
+            document.querySelectorAll('.cell').forEach(c => { 
+                c.innerText = ""; 
+                c.style.color = "#ff6b9e"; 
+                c.classList.remove('win-cell'); // reset winning line
+            });
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
-            show(1); // Go back to game screen
+            show(1);
         }
 
         // Heart Confetti
@@ -321,4 +332,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+    
