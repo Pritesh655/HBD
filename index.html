@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Kavya 💖</title>
+    <title>For Kavya 🎀</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        /* SCROLLING ENABLED & BACKGROUND FIXED */
+        /* SCROLLING & BACKGROUND SETUP */
         body { 
             background-color: #ffdce5; 
             background-image: url('bg.gif'); 
@@ -16,13 +16,13 @@
             display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
             min-height: 100vh; margin: 0; font-family: 'Arial', sans-serif; 
             transition: background 0.8s ease; 
-            overflow-x: hidden; /* Hide horizontal scroll */
-            overflow-y: auto;   /* Allow vertical scroll */
+            overflow-x: hidden; 
+            overflow-y: auto;   
         }
         .black-bg { background: #050505 !important; background-image: none !important; color: white !important; }
         .hidden { display: none !important; }
         
-        /* Screens flex to fill height but allow content to push down */
+        /* Screens Base */
         .screen { 
             text-align: center; width: 100%; max-width: 500px; 
             padding: 40px 20px; box-sizing: border-box; z-index: 10; 
@@ -30,7 +30,7 @@
         }
         
         /* Premium Text Animations */
-        .fade-up { animation: fadeUpAnim 1.2s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        .fade-up { animation: fadeUpAnim 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
         @keyframes fadeUpAnim { to { opacity: 1; transform: translateY(0); } }
         
         h1 { color: #ff6b9e; font-size: 34px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); }
@@ -57,7 +57,7 @@
         .gift-box:active { transform: scale(0.8); }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* BADA POLAROID & VINYL (SCROLLABLE) */
+        /* BADA POLAROID & VINYL */
         .slider-container { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px; width: 95%; max-width: 500px; }
         .polaroid-img { width: 100%; border-radius: 8px; position: relative; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         .vinyl { width: 45%; position: absolute; right: -15%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; opacity: 0.95; }
@@ -70,7 +70,7 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop><source src="hbd.mp3" type="audio/mpeg"></audio>
+    <audio id="bgMusic" loop preload="auto"><source src="hbd.mp3" type="audio/mpeg"></audio>
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
@@ -79,7 +79,7 @@
             <div class="cell" onclick="move(3)"></div><div class="cell" onclick="move(4)"></div><div class="cell" onclick="move(5)"></div>
             <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
         </div>
-        <button class="btn hidden" id="next1" onclick="playClick(); show(2); shootHearts();">Next</button>
+        <button class="btn hidden" id="next1" onclick="startMusicAndShow(2); shootHearts();">Next</button>
     </div>
 
     <div id="screen2" class="screen hidden">
@@ -112,7 +112,7 @@
 
     <div id="screen6" class="screen hidden">
         <h2 class="fade-up" style="color:#4287f5; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px;">GIFT FOR YOU</h2>
-        <p class="fade-up" style="background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: bold;">CLICK ANY GIFT TO OPEN</p>
+        <p class="fade-up" style="background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: bold; color: #333;">CLICK ANY GIFT TO OPEN</p>
         <div class="gift-grid fade-up">
             <img class="gift-box" src="gift.jpg" onclick="openGift(1)">
             <img class="gift-box" src="gift.jpg" onclick="openGift(2)">
@@ -126,7 +126,8 @@
             <img src="vinyl.png" class="vinyl" onerror="this.style.display='none'">
             <img src="cam1.png" class="polaroid-img" onerror="this.src='cam1.jpg'">
         </div>
-        <br><button class="btn btn-blue fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
+        <p class="fade-up" style="background: rgba(255,255,255,0.8); padding: 8px 15px; border-radius: 10px; margin-top: 25px; font-weight: bold; color: #333;">Some moments are just aesthetic ✨</p>
+        <button class="btn btn-blue fade-up" style="margin-top: 15px;" onclick="playClick(); show(6)">BACK TO GIFTS</button>
     </div>
 
     <div id="screen8" class="screen hidden">
@@ -135,7 +136,7 @@
     </div>
 
     <div id="screen9" class="screen hidden">
-        <p class="fade-up" style="font-size:20px; color:#ddd; font-style:italic; padding:0 20px;">Here's your virtual cake, it's calorie-free but full of love.<br><br>Blow your candle and make your wish.</p>
+        <p class="fade-up" style="font-size:20px; color:#ddd; font-style:italic; padding:0 20px;">Here's your virtual cake. <br><br>Blow out the candles and make a wish!</p>
         <img id="cakePic" class="main-media" src="cake_on.png" style="max-width:300px; drop-shadow: 0 0 30px rgba(255,100,100,0.6);">
         <br><button id="blowBtn" class="btn btn-white fade-up" onclick="playClick(); blowCandles()">BLOW</button>
     </div>
@@ -144,35 +145,49 @@
         <img src="cake_off.png" class="main-media" style="max-width:250px; opacity:0.9;">
         <h1 class="fade-up cursive-wish">Happy Birthday</h1>
         <p class="fade-up" style="font-size:16px; line-height:1.7; color:#ccc; padding: 0 20px; text-align: center;">
-            Happy Birthday to the most amazing girl! 💖<br><br>
-            You have filled my life with so much joy and beautiful moments. I hope this year brings you all the success, happiness, and love that you truly deserve. No matter what happens, I am always here cheering for you. Have the most amazing day ever!
+            Happy Birthday, Kavya 🎀!<br><br>
+            Wishing you all the success, happiness, and good vibes this year. Keep smiling, keep shining, and party hard today. Have the most amazing day ever!
         </p>
         <button class="btn btn-white fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
     </div>
 
-    <div id="screen11" class="screen hidden">
+    <div id="screen11" class="screen hidden" style="justify-content: flex-start; padding-top: 150px;">
         <div class="slider-container fade-up">
             <img src="vinyl.png" class="vinyl" onerror="this.style.display='none'">
             <img src="cam2.png" class="polaroid-img" onerror="this.src='cam2.jpg'">
         </div>
-        <br><button class="btn fade-up" style="background:white; color:black;" onclick="playClick(); location.reload()">START AGAIN</button>
+        <br><button class="btn fade-up" style="background:white; color:black; margin-top: 30px;" onclick="playClick(); location.reload()">START AGAIN</button>
     </div>
 
     <script>
-        // System Audio Click
+        // Normal Button Click Sound (Pop)
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                let oscillator = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.1);
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        // Special Gift Click Sound (Magical Chime)
+        function playGiftSound() {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.type = 'triangle'; 
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
             } catch(e) {}
         }
 
@@ -220,6 +235,18 @@
             }
         }
 
+        // Music Fix - Starts on first interaction
+        let musicStarted = false;
+        function startMusicAndShow(s) {
+            playClick();
+            if(!musicStarted) {
+                let music = document.getElementById('bgMusic');
+                music.play().catch(e => console.log("Audio waiting for stronger interaction"));
+                musicStarted = true;
+            }
+            show(s);
+        }
+
         // Navigation Engine & Background Changer
         function show(s){
             document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
@@ -233,7 +260,7 @@
                 el.style.animation = null; 
             });
 
-            // Scroll to top automatically when screen changes
+            // Scroll to top
             window.scrollTo(0, 0);
 
             // Reset Background
@@ -251,13 +278,11 @@
         }
 
         // Gift Routing Logic
-        let musicStarted = false;
         function openGift(giftNumber) {
-            playClick();
+            playGiftSound(); // New Magical Sound
             
             if(!musicStarted) { 
-                let music = document.getElementById('bgMusic');
-                music.play().catch(e => console.log("Audio blocked"));
+                document.getElementById('bgMusic').play(); 
                 musicStarted = true; 
             }
             
