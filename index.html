@@ -55,6 +55,10 @@
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; }
         .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 55px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: sans-serif; }
         
+        /* Animated SVG Line */
+        .draw-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 0.6s ease-out forwards; }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+
         /* Gift Grid (Numbers) */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
         .gift-wrapper { text-align: center; }
@@ -170,7 +174,7 @@
         <img src="cake_off.png" class="main-media" style="max-width:250px; opacity:0.9;">
         <h1 class="fade-up golden-wish">Happy Birthday</h1>
         <p class="fade-up" style="font-size:16px; line-height:1.7; color:#ccc; padding: 0 20px; text-align: center;">
-            Happy Birthday, Kavya 🎀!<br><br>
+            Happy Birthday, Cutie 🎀!<br><br>
             Wishing you all the success, happiness, and good vibes this year. Wishing you a day as beautiful as your heart. You deserve every bit of happiness today. I'll always be here cheering for you. Have the most amazing day ever!
         </p>
         <button class="btn btn-white fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
@@ -201,11 +205,11 @@
             } catch(e) {}
         }
 
-        // Tic Tac Toe Logic with Precise SVG Line Drawing
+        // Tic Tac Toe Logic with Smooth Drawing Line
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
-        // Winning patterns mapped to exact drawing coordinates (x1, y1, x2, y2)
+        // Winning patterns mapped to exact drawing coordinates
         const lineCoords = {
             '0,1,2': {x1:'10%', y1:'18.75%', x2:'90%', y2:'18.75%'},
             '3,4,5': {x1:'10%', y1:'50%', x2:'90%', y2:'50%'},
@@ -226,7 +230,6 @@
         function checkWin(player) {
             for(let pattern of winPatterns) {
                 if(b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player) {
-                    // Draw the magic continuous line
                     let key = pattern.join(',');
                     let coords = lineCoords[key];
                     let svg = document.getElementById('win-svg');
@@ -236,6 +239,11 @@
                     line.setAttribute('y1', coords.y1);
                     line.setAttribute('x2', coords.x2);
                     line.setAttribute('y2', coords.y2);
+                    
+                    // Trigger Smooth Animation
+                    line.classList.remove('draw-line');
+                    void line.offsetWidth; // Force reflow
+                    line.classList.add('draw-line');
                     svg.style.display = 'block';
                     
                     return true;
@@ -257,8 +265,8 @@
             
             if(checkWin("X")) {
                 gameOver = true;
-                // Line draw hone ke baad hi Next aayega
-                setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 400);
+                // Thoda time dena taaki line draw hone ka animation dikhe
+                setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 600);
                 return;
             }
             
@@ -343,7 +351,7 @@
             }
         }
 
-        // Gifts (Simple Click Audio Only)
+        // Gifts 
         function openGift(giftNumber) {
             playClick(); 
             if(giftNumber === 1) show(7); 
@@ -359,4 +367,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+    
