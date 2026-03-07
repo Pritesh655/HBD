@@ -148,7 +148,7 @@
         <h1 class="fade-up golden-wish">Happy Birthday</h1>
         <p class="fade-up" style="font-size:16px; line-height:1.7; color:#ccc; padding: 0 20px; text-align: center;">
             Happy Birthday, Kavya 🎀!<br><br>
-            You bring so much light and happiness into my world. Wishing you a year filled with endless laughter, success, and everything your heart desires. I'll always be here cheering for you, today and forever. Have the most magical day!
+            Wishing you all the success, happiness, and good vibes this year. Wishing you a day as beautiful as your heart. You deserve every bit of happiness today. I'll always be here cheering for you. Have the most amazing day ever!
         </p>
         <button class="btn btn-white fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
     </div>
@@ -163,7 +163,7 @@
     </div>
 
     <script>
-        // Premium Pop Sound for Buttons
+        // Normal Pop Sound (Puraana wala best sound)
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -171,19 +171,33 @@
                 let gain = audioCtx.createGain();
                 osc.connect(gain); gain.connect(audioCtx.destination);
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
                 osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.1);
             } catch(e) {}
         }
 
-        // REAL Tic Tac Toe Logic (No fake wins)
+        // Magical Ting Sound (Sirf Gifts ke liye)
+        function playGiftSound() {
+            try {
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.type = 'triangle'; 
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
+            } catch(e) {}
+        }
+
+        // SMART Tic Tac Toe Logic
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
-        // Exact winning lines
         const winPatterns = [
             [0,1,2], [3,4,5], [6,7,8], 
             [0,3,6], [1,4,7], [2,5,8], 
@@ -200,6 +214,17 @@
             return b.every(cell => cell !== "");
         }
 
+        // Computer Ka Dimaag (AI Logic)
+        function getBestMove(player) {
+            for(let p of winPatterns) {
+                let [x, y, z] = p;
+                if(b[x]===player && b[y]===player && b[z]==="") return z;
+                if(b[x]===player && b[z]===player && b[y]==="") return y;
+                if(b[y]===player && b[z]===player && b[x]==="") return x;
+            }
+            return -1;
+        }
+
         function move(i){
             if(b[i] !== "" || gameOver) return; 
             playClick();
@@ -208,27 +233,38 @@
             b[i] = "X"; 
             document.querySelectorAll('.cell')[i].innerText = "X";
             
-            // Check if X really won
             if(checkWin("X")) {
                 gameOver = true;
                 document.getElementById('next1').classList.remove('hidden');
                 return;
             }
             
-            // Check Draw
             if(checkDraw()) {
                 gameOver = true;
                 document.getElementById('retryBtn').classList.remove('hidden');
                 return;
             }
             
-            // Computer Move (O)
+            // Computer Move (O) with Smart Brain
             setTimeout(() => {
-                let empty = [];
-                b.forEach((v, idx) => { if(v === "") empty.push(idx); });
+                let ai = getBestMove("O"); // 1. Pehle dekho jeet sakte hain kya?
                 
-                if(empty.length > 0) {
-                    let ai = empty[Math.floor(Math.random() * empty.length)];
+                if(ai === -1) {
+                    ai = getBestMove("X"); // 2. Agar nahi, toh dekho player ko block kar sakte hain kya?
+                }
+                
+                if(ai === -1 && b[4] === "") {
+                    ai = 4; // 3. Agar kuch samajh na aaye toh beech wala box le lo
+                }
+                
+                if(ai === -1) {
+                    // 4. Aakhri rasta: Bachi hui jagah me se koi random box le lo
+                    let empty = [];
+                    b.forEach((v, idx) => { if(v === "") empty.push(idx); });
+                    ai = empty[Math.floor(Math.random() * empty.length)];
+                }
+
+                if(ai !== -1) {
                     b[ai] = "O";
                     let c = document.querySelectorAll('.cell')[ai];
                     c.innerText = "O";
@@ -242,7 +278,6 @@
             }, 400); 
         }
 
-        // Restart Game
         function resetGame() {
             playClick();
             b = ["","","","","","","","",""];
@@ -292,9 +327,9 @@
             }
         }
 
-        // Gifts (Completely stripped of music logic)
+        // Gifts (No Music, Magical Ting Sound)
         function openGift(giftNumber) {
-            playClick(); 
+            playGiftSound(); 
             if(giftNumber === 1) show(7); 
             if(giftNumber === 2) show(8); 
             if(giftNumber === 3) show(9); 
@@ -308,5 +343,4 @@
         }
     </script>
 </body>
-                </html>
-                
+</html>
