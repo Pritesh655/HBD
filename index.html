@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Kavya 🎀</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <link rel="preload" href="bg_cam1.jpg" as="image">
+    
     <style>
         /* SCROLLING & BACKGROUND SETUP */
         body { 
@@ -25,6 +28,7 @@
         .red-bg { background: #5c0011 !important; background-image: none !important; color: white !important; }
         .lilac-bg { background: #e8dff5 !important; background-image: none !important; } /* Screens 3 & 4 */
         .champagne-bg { background: #fbf5ef !important; background-image: none !important; } /* Gift Hub */
+        .cam1-bg { background-color: #e0d4c8 !important; background-image: url('bg_cam1.jpg') !important; } /* Cam 1 Instant BG */
         
         .hidden { display: none !important; }
         
@@ -84,6 +88,10 @@
     </style>
 </head>
 <body>
+
+    <div style="display: none;">
+        <img src="bg_cam1.jpg" alt="preload">
+    </div>
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
@@ -322,7 +330,7 @@
             }
         }
 
-        // BACKGROUND COLOR LOGIC UPDATED HERE
+        // BACKGROUND COLOR LOGIC WITH INSTANT CAM-1 LOAD
         function show(s){
             document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
             
@@ -351,7 +359,7 @@
             } else if(s==9 || s==10) {
                 document.body.classList.add('black-bg'); // Black for cake
             } else if(s==7) {
-                document.body.style.backgroundImage = "url('bg_cam1.jpg')"; // Polaroid bg
+                document.body.classList.add('cam1-bg'); // Instant Flowers Background
             } else if(s==11) {
                 document.body.classList.add('red-bg'); // Dark Red finale
             }
@@ -372,4 +380,5 @@
         }
     </script>
 </body>
-</html>
+            </html>
+            
