@@ -19,8 +19,13 @@
             overflow-x: hidden; 
             overflow-y: auto;   
         }
+        
+        /* NEW PREMIUM BACKGROUND CLASSES */
         .black-bg { background: #050505 !important; background-image: none !important; color: white !important; }
         .red-bg { background: #5c0011 !important; background-image: none !important; color: white !important; }
+        .lilac-bg { background: #e8dff5 !important; background-image: none !important; } /* Screens 3 & 4 */
+        .champagne-bg { background: #fbf5ef !important; background-image: none !important; } /* Gift Hub */
+        
         .hidden { display: none !important; }
         
         /* Screens Base */
@@ -50,7 +55,7 @@
         .btn-white { background: #ffffff; color: #000; }
         .btn-gray { background: #888; color: white; padding: 15px 25px; font-size: 16px; margin-top: 20px; }
 
-        /* Tic Tac Toe Grid with Relative Position for Drawing Line */
+        /* Tic Tac Toe Grid */
         .board-container { position: relative; margin: 0 auto 20px auto; width: fit-content; }
         .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; }
         .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 55px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: sans-serif; }
@@ -59,7 +64,7 @@
         .draw-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 0.6s ease-out forwards; }
         @keyframes dash { to { stroke-dashoffset: 0; } }
 
-        /* Gift Grid (Numbers) */
+        /* Gift Grid */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
         .gift-wrapper { text-align: center; }
         .gift-box { width: 130px; border-radius: 10px; cursor: pointer; transition: transform 0.2s; animation: pulse 2s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -209,7 +214,6 @@
         let b = ["","","","","","","","",""];
         let gameOver = false;
         
-        // Winning patterns mapped to exact drawing coordinates
         const lineCoords = {
             '0,1,2': {x1:'10%', y1:'18.75%', x2:'90%', y2:'18.75%'},
             '3,4,5': {x1:'10%', y1:'50%', x2:'90%', y2:'50%'},
@@ -240,9 +244,8 @@
                     line.setAttribute('x2', coords.x2);
                     line.setAttribute('y2', coords.y2);
                     
-                    // Trigger Smooth Animation
                     line.classList.remove('draw-line');
-                    void line.offsetWidth; // Force reflow
+                    void line.offsetWidth; 
                     line.classList.add('draw-line');
                     svg.style.display = 'block';
                     
@@ -265,7 +268,6 @@
             
             if(checkWin("X")) {
                 gameOver = true;
-                // Thoda time dena taaki line draw hone ka animation dikhe
                 setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 600);
                 return;
             }
@@ -276,7 +278,6 @@
                 return;
             }
             
-            // EASY Computer Move
             setTimeout(() => {
                 let empty = [];
                 b.forEach((v, idx) => { if(v === "") empty.push(idx); });
@@ -304,14 +305,12 @@
                 c.innerText = ""; 
                 c.style.color = "#ff6b9e"; 
             });
-            // Reset Line
             document.getElementById('win-svg').style.display = 'none';
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
             show(1);
         }
 
-        // Heart Confetti
         function shootHearts() {
             for(let i=0; i<20; i++){
                 let h = document.createElement('div');
@@ -323,7 +322,7 @@
             }
         }
 
-        // Navigation
+        // BACKGROUND COLOR LOGIC UPDATED HERE
         function show(s){
             document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
             
@@ -338,20 +337,26 @@
 
             window.scrollTo(0, 0);
 
-            // Background Logic
+            // Reset sab kuch
             document.body.className = '';
-            document.body.style.backgroundImage = "url('bg.gif')";
+            document.body.style.backgroundImage = 'none';
 
-            if(s==9 || s==10) {
-                document.body.classList.add('black-bg');
+            // Apply specific backgrounds
+            if(s==1 || s==2) {
+                document.body.style.backgroundImage = "url('bg.gif')"; // Original Pink
+            } else if(s==3 || s==4 || s==5) {
+                document.body.classList.add('lilac-bg'); // Soft Lilac
+            } else if(s==6 || s==8) {
+                document.body.classList.add('champagne-bg'); // Premium Cream/Champagne
+            } else if(s==9 || s==10) {
+                document.body.classList.add('black-bg'); // Black for cake
             } else if(s==7) {
-                document.body.style.backgroundImage = "url('bg_cam1.jpg')";
+                document.body.style.backgroundImage = "url('bg_cam1.jpg')"; // Polaroid bg
             } else if(s==11) {
-                document.body.classList.add('red-bg'); 
+                document.body.classList.add('red-bg'); // Dark Red finale
             }
         }
 
-        // Gifts 
         function openGift(giftNumber) {
             playClick(); 
             if(giftNumber === 1) show(7); 
@@ -367,5 +372,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
