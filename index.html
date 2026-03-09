@@ -9,6 +9,7 @@
     <link rel="preload" href="bg_cam1.jpg" as="image">
     
     <style>
+        /* MOBILE-FIRST BOX SIZING */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
@@ -20,10 +21,11 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             min-height: 100vh; margin: 0; font-family: 'Arial', sans-serif; 
             transition: background 0.5s ease; 
-            overflow: hidden; 
+            overflow: hidden; /* Fixes the zoom/scroll issue */
         }
         
-        .black-bg { background: #050505 !important; color: white !important; }
+        /* PREMIUM BACKGROUND CLASSES */
+        .cake-bg { background: radial-gradient(circle at center, #4a152b 0%, #0f0207 100%) !important; background-image: none !important; color: white !important; }
         .red-bg { background: #5c0011 !important; color: white !important; }
         .lilac-bg { background: #e8dff5 !important; }
         .champagne-bg { background: #fbf5ef !important; }
@@ -31,6 +33,7 @@
         
         .hidden { display: none !important; }
         
+        /* Fixed-Frame Screen Layout */
         .screen { 
             text-align: center; width: 100%; max-width: 400px; 
             padding: 20px; z-index: 10; 
@@ -42,17 +45,19 @@
         @keyframes fadeUpAnim { to { opacity: 1; transform: translateY(0); } }
         
         h1 { color: #ff6b9e; font-size: 28px; margin: 0 0 15px 0; }
-        h2 { color: #ff6b9e; font-size: 24px; margin: 0 0 5px 0; }
+        h2 { color: #ff6b9e; font-size: 24px; margin: 0 0 15px 0; }
         
         .cursive-wish { font-family: 'Great Vibes', cursive; font-size: 45px; color: #ffffff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 15px; }
         .golden-wish { font-family: 'Great Vibes', cursive; font-size: 40px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; }
         
+        /* Auto-Scaling Media */
         img.main-media { max-width: 85%; max-height: 45vh; border-radius: 12px; object-fit: contain; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
         .btn { background: #ff6b9e; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         .btn-blue { background: #4287f5; }
         .btn-white { background: #ffffff; color: #000; }
 
+        /* Tic Tac Toe Grid */
         .board-container { position: relative; margin-bottom: 15px; }
         .board { display: grid; grid-template-columns: repeat(3, 80px); gap: 8px; background: rgba(255,255,255,0.9); padding: 12px; border-radius: 12px; }
         .cell { width: 80px; height: 80px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 45px; color: #ff6b9e; font-weight: bold; border-radius: 8px; }
@@ -60,16 +65,19 @@
         .draw-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 0.6s ease-out forwards; }
         @keyframes dash { to { stroke-dashoffset: 0; } }
 
+        /* Gift Grid (Auto-Fit) */
         .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
         .gift-box { width: 110px; border-radius: 8px; cursor: pointer; animation: pulse 2s infinite; }
         .gift-number { font-size: 16px; font-weight: bold; color: #ff6b9e; background: white; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; margin: 8px auto 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         @keyframes pulse { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.05);} }
 
+        /* Polaroid & Vinyl Scaling Fix */
         .slider-container { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 320px; }
         .polaroid-img { width: 100%; border-radius: 8px; z-index: 5; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .vinyl { width: 55%; position: absolute; right: -20%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; }
         @keyframes spin { 100% { transform: translateY(-50%) rotate(360deg); } }
 
+        /* Heart Confetti */
         .heart { position: fixed; color: #ff6b9e; font-size: 20px; animation: floatUp 3s ease-in forwards; z-index: 100; }
         @keyframes floatUp { 0% { opacity: 1; transform: translateY(100vh) rotate(0deg); } 100% { opacity: 0; transform: translateY(-10vh) rotate(45deg); } }
     </style>
@@ -81,9 +89,8 @@
     </div>
 
     <div id="screen1" class="screen">
-        <h2 class="fade-up">Tic Tac Toe</h2>
-        <p class="fade-up" style="color: #ff6b9e; font-weight: bold; font-size: 15px; margin-top: 0px; margin-bottom: 20px;">Tap any box to start playing 👇</p>
-        
+        <h2 class="fade-up" style="margin-bottom: 5px;">Tic Tac Toe</h2>
+        <p class="fade-up" style="color: #ff3b7c; font-size: 14px; font-weight: bold; margin-top: 0; margin-bottom: 15px;">Play and win to unlock your gifts 👇</p>
         <div class="board-container fade-up">
             <div class="board">
                 <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
@@ -155,7 +162,7 @@
     </div>
 
     <div id="screen9" class="screen hidden">
-        <p style="color:#ddd;">Blow out the candles!</p>
+        <p style="color:#e8dff5;">Blow out the candles!</p>
         <img id="cakePic" src="cake_on.png" style="max-width:220px;">
         <button id="blowBtn" class="btn btn-white" onclick="playClick(); blowCandles()">BLOW</button>
     </div>
@@ -163,7 +170,7 @@
     <div id="screen10" class="screen hidden">
         <img src="cake_off.png" style="max-width:180px;">
         <h1 class="golden-wish">Happy Birthday</h1>
-        <p style="font-size:14px; color:#ccc; padding:0 10px;">
+        <p style="font-size:14px; color:#fbf5ef; padding:0 10px;">
             Happy Birthday, Cutie 🎀!<br>
             Wishing you a day as beautiful as your heart. You deserve every bit of happiness today. Cheering for you always!
         </p>
@@ -259,7 +266,7 @@
             if(s==1||s==2) document.body.style.backgroundImage = "url('bg.gif')";
             else if(s==3||s==4||s==5) document.body.classList.add('lilac-bg');
             else if(s==6||s==8) document.body.classList.add('champagne-bg');
-            else if(s==9||s==10) document.body.classList.add('black-bg');
+            else if(s==9||s==10) document.body.classList.add('cake-bg'); // Spotlight Premium Glow!
             else if(s==7) document.body.classList.add('cam1-bg');
             else if(s==11) document.body.classList.add('red-bg');
         }
