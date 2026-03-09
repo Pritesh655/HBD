@@ -25,8 +25,12 @@
             overflow-y: auto; /* Scroll Restored */
         }
         
-        /* PREMIUM BACKGROUND CLASSES (Fixed Velvet Bug) */
-        .velvet-bg { background-color: #1a0008 !important; background-image: none !important; color: white !important; } /* Fail-proof Dark Premium Plum/Black */
+        /* PREMIUM BACKGROUND CLASSES (Fail-Proof Velvet) */
+        .velvet-bg { 
+            background-color: #2b000d !important; /* Fail-proof Dark Plum/Burgundy */
+            background-image: radial-gradient(circle at center, #4a001a 0%, #0a0005 100%) !important; 
+            color: white !important; 
+        }
         .red-bg { background-color: #5c0011 !important; background-image: none !important; color: white !important; }
         .lilac-bg { background-color: #e8dff5 !important; background-image: none !important;}
         .champagne-bg { background-color: #fbf5ef !important; background-image: none !important;}
@@ -97,7 +101,7 @@
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
-        <p class="fade-up instruction-text">( Tap any box to make your first move 🤍 )</p>
+        <p class="fade-up instruction-text">( Tap any box to make your first move ✨ )</p>
         <div class="board-container fade-up">
             <div class="board">
                 <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
@@ -123,7 +127,7 @@
     </div>
 
     <div id="screen3" class="screen hidden">
-        <h1 style="color:#4287f5;" class="fade-up">Happy<br>BIRTHDAY</h1>
+        <h1 style="color:#4287f5;" class="fade-up">HAPPY<br>BIRTHDAY</h1>
         <img class="main-media" src="gif1.gif">
         <br><button class="btn btn-blue fade-up" onclick="playClick(); show(4)">NEXT</button>
     </div>
@@ -290,11 +294,11 @@
             window.scrollTo(0,0);
             document.body.className = ''; document.body.style.backgroundImage = 'none';
             
-            // Restored Premium Colors (Safe from White Bug)
+            // Fixed Fallback Backgrounds
             if(s==1||s==2) document.body.style.backgroundImage = "url('bg.gif')";
             else if(s==3||s==4||s==5) document.body.classList.add('lilac-bg');
             else if(s==6||s==8) document.body.classList.add('champagne-bg');
-            else if(s==9||s==10) document.body.classList.add('velvet-bg'); /* Fixed Solid Dark Plum */
+            else if(s==9||s==10) document.body.classList.add('velvet-bg');
             else if(s==7) document.body.classList.add('cam1-bg');
             else if(s==11) document.body.classList.add('red-bg');
         }
