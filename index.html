@@ -2,89 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Kavya 🎀</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     
     <link rel="preload" href="bg_cam1.jpg" as="image">
     
     <style>
-        /* SCROLLING & BACKGROUND SETUP */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body { 
             background-color: #ffdce5; 
             background-image: url('bg.gif'); 
             background-size: cover; 
             background-position: top center; 
             background-attachment: fixed;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
             min-height: 100vh; margin: 0; font-family: 'Arial', sans-serif; 
-            transition: background 0.8s ease; 
-            overflow-x: hidden; 
-            overflow-y: auto;   
+            transition: background 0.5s ease; 
+            overflow: hidden; 
         }
         
-        /* NEW PREMIUM BACKGROUND CLASSES */
-        .black-bg { background: #050505 !important; background-image: none !important; color: white !important; }
-        .red-bg { background: #5c0011 !important; background-image: none !important; color: white !important; }
-        .lilac-bg { background: #e8dff5 !important; background-image: none !important; } /* Screens 3 & 4 */
-        .champagne-bg { background: #fbf5ef !important; background-image: none !important; } /* Gift Hub */
-        .cam1-bg { background-color: #e0d4c8 !important; background-image: url('bg_cam1.jpg') !important; } /* Cam 1 Instant BG */
+        .black-bg { background: #050505 !important; color: white !important; }
+        .red-bg { background: #5c0011 !important; color: white !important; }
+        .lilac-bg { background: #e8dff5 !important; }
+        .champagne-bg { background: #fbf5ef !important; }
+        .cam1-bg { background-color: #e0d4c8 !important; background-image: url('bg_cam1.jpg') !important; } 
         
         .hidden { display: none !important; }
         
-        /* Screens Base */
         .screen { 
-            text-align: center; width: 100%; max-width: 500px; 
-            padding: 40px 20px; box-sizing: border-box; z-index: 10; 
-            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; width: 100%; max-width: 400px; 
+            padding: 20px; z-index: 10; 
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            overflow: hidden;
         }
         
-        /* Premium Text Animations */
-        .fade-up { animation: fadeUpAnim 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        .fade-up { animation: fadeUpAnim 0.8s ease-out forwards; opacity: 0; transform: translateY(15px); }
         @keyframes fadeUpAnim { to { opacity: 1; transform: translateY(0); } }
         
-        h1 { color: #ff6b9e; font-size: 34px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); }
-        h2 { color: #ff6b9e; font-size: 28px; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); }
-        p { font-size: 16px; line-height: 1.6; }
+        h1 { color: #ff6b9e; font-size: 28px; margin: 0 0 15px 0; }
+        h2 { color: #ff6b9e; font-size: 24px; margin: 0 0 5px 0; }
         
-        .cursive-wish { font-family: 'Great Vibes', cursive; font-size: 55px; color: #ffffff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-top: 0px; margin-bottom: 20px; }
-        .golden-wish { font-family: 'Great Vibes', cursive; font-size: 50px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-top: 15px; margin-bottom: 10px; }
+        .cursive-wish { font-family: 'Great Vibes', cursive; font-size: 45px; color: #ffffff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 15px; }
+        .golden-wish { font-family: 'Great Vibes', cursive; font-size: 40px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; }
         
-        img.main-media { max-width: 90%; border-radius: 15px; margin-top: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: zoomIn 0.8s ease-out; }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        img.main-media { max-width: 85%; max-height: 45vh; border-radius: 12px; object-fit: contain; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .btn { background: #ff6b9e; color: white; padding: 15px 35px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 6px 10px rgba(0,0,0,0.2); transition: transform 0.1s; }
-        .btn:active { transform: scale(0.9); }
+        .btn { background: #ff6b9e; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         .btn-blue { background: #4287f5; }
         .btn-white { background: #ffffff; color: #000; }
-        .btn-gray { background: #888; color: white; padding: 15px 25px; font-size: 16px; margin-top: 20px; }
 
-        /* Tic Tac Toe Grid */
-        .board-container { position: relative; margin: 0 auto 20px auto; width: fit-content; }
-        .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; }
-        .cell { width: 90px; height: 90px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 55px; color: #ff6b9e; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: sans-serif; }
+        .board-container { position: relative; margin-bottom: 15px; }
+        .board { display: grid; grid-template-columns: repeat(3, 80px); gap: 8px; background: rgba(255,255,255,0.9); padding: 12px; border-radius: 12px; }
+        .cell { width: 80px; height: 80px; background: #fff4f7; display: flex; align-items: center; justify-content: center; font-size: 45px; color: #ff6b9e; font-weight: bold; border-radius: 8px; }
         
-        /* Animated SVG Line */
         .draw-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 0.6s ease-out forwards; }
         @keyframes dash { to { stroke-dashoffset: 0; } }
 
-        /* Gift Grid */
-        .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; }
-        .gift-wrapper { text-align: center; }
-        .gift-box { width: 130px; border-radius: 10px; cursor: pointer; transition: transform 0.2s; animation: pulse 2s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .gift-box:active { transform: scale(0.8); }
-        .gift-number { font-size: 20px; font-weight: bold; color: #ff6b9e; margin-top: 10px; background: white; border-radius: 50%; width: 35px; height: 35px; line-height: 35px; margin-left: auto; margin-right: auto; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+        .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        .gift-box { width: 110px; border-radius: 8px; cursor: pointer; animation: pulse 2s infinite; }
+        .gift-number { font-size: 16px; font-weight: bold; color: #ff6b9e; background: white; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; margin: 8px auto 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        @keyframes pulse { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.05);} }
 
-        /* BADA POLAROID & VINYL */
-        .slider-container { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px; width: 95%; max-width: 500px; }
-        .polaroid-img { width: 100%; border-radius: 8px; position: relative; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-        .vinyl { width: 60%; position: absolute; right: -25%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; opacity: 0.95; }
+        .slider-container { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 320px; }
+        .polaroid-img { width: 100%; border-radius: 8px; z-index: 5; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .vinyl { width: 55%; position: absolute; right: -20%; top: 50%; transform: translateY(-50%); z-index: 1; animation: spin 3s linear infinite; }
         @keyframes spin { 100% { transform: translateY(-50%) rotate(360deg); } }
 
-        /* Hearts Confetti */
-        .heart { position: fixed; color: #ff6b9e; font-size: 24px; animation: floatUp 3s ease-in forwards; z-index: 100; pointer-events: none; }
-        @keyframes floatUp { 0% { opacity: 1; transform: translateY(100vh) scale(1) rotate(0deg); } 100% { opacity: 0; transform: translateY(-100px) scale(1.5) rotate(45deg); } }
+        .heart { position: fixed; color: #ff6b9e; font-size: 20px; animation: floatUp 3s ease-in forwards; z-index: 100; }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(100vh) rotate(0deg); } 100% { opacity: 0; transform: translateY(-10vh) rotate(45deg); } }
     </style>
 </head>
 <body>
@@ -95,6 +82,8 @@
 
     <div id="screen1" class="screen">
         <h2 class="fade-up">Tic Tac Toe</h2>
+        <p class="fade-up" style="color: #ff6b9e; font-weight: bold; font-size: 15px; margin-top: 0px; margin-bottom: 20px;">Tap any box to start playing 👇</p>
+        
         <div class="board-container fade-up">
             <div class="board">
                 <div class="cell" onclick="move(0)"></div><div class="cell" onclick="move(1)"></div><div class="cell" onclick="move(2)"></div>
@@ -102,217 +91,152 @@
                 <div class="cell" onclick="move(6)"></div><div class="cell" onclick="move(7)"></div><div class="cell" onclick="move(8)"></div>
             </div>
             <svg id="win-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; display:none; z-index: 10;">
-                <line id="win-line" x1="0" y1="0" x2="0" y2="0" stroke="#ff3b7c" stroke-width="8" stroke-linecap="round"/>
+                <line id="win-line" x1="0" y1="0" x2="0" y2="0" stroke="#ff3b7c" stroke-width="6" stroke-linecap="round"/>
             </svg>
         </div>
         <button class="btn hidden" id="next1" onclick="playClick(); show(2); shootHearts();">Next</button>
-        <button class="btn btn-gray hidden" id="retryBtn" onclick="resetGame()">Try Again</button>
+        <button class="btn btn-blue hidden" id="retryBtn" onclick="resetGame()">Try Again</button>
     </div>
 
     <div id="screen2" class="screen hidden">
-        <div style="background:rgba(255,255,255,0.95); padding:40px; border-radius:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" class="fade-up">
-            <h1 style="text-shadow: none;">You won! 💖</h1>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn btn-gray" onclick="resetGame()">Try Again</button>
-                <button class="btn btn-blue" onclick="playClick(); show(3)">Next</button>
+        <div style="background:rgba(255,255,255,0.95); padding:30px; border-radius:15px;" class="fade-up">
+            <h1>You won! 💖</h1>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="btn btn-blue" style="padding:10px 20px;" onclick="resetGame()">Retry</button>
+                <button class="btn" style="padding:10px 20px;" onclick="playClick(); show(3)">Next</button>
             </div>
         </div>
     </div>
 
     <div id="screen3" class="screen hidden">
-        <h1 style="color:#4287f5;" class="fade-up">Happy<br>BIRTHDAY</h1>
+        <h1 style="color:#4287f5;">Happy BIRTHDAY</h1>
         <img class="main-media" src="gif1.gif">
-        <br><button class="btn btn-blue fade-up" onclick="playClick(); show(4)">NEXT</button>
+        <button class="btn btn-blue" onclick="playClick(); show(4)">NEXT</button>
     </div>
 
     <div id="screen4" class="screen hidden">
-        <h2 class="fade-up">Are you ready<br>for surprise?</h2>
+        <h2>Are you ready?</h2>
         <img class="main-media" src="gif2.gif">
-        <div style="display:flex; gap:15px; justify-content:center;" class="fade-up">
+        <div style="display:flex; gap:10px;">
             <button class="btn" onclick="playClick(); show(6)">YES</button>
             <button class="btn" onclick="playClick(); show(5)">NO</button>
         </div>
     </div>
 
     <div id="screen5" class="screen hidden">
-        <h2 class="fade-up">HOW DARE YOU!! 😒</h2>
+        <h2>HOW DARE YOU!! 😒</h2>
         <img class="main-media" src="gif3.gif">
-        <br><button class="btn fade-up" onclick="playClick(); show(4)">TRY AGAIN</button>
+        <button class="btn" onclick="playClick(); show(4)">TRY AGAIN</button>
     </div>
 
     <div id="screen6" class="screen hidden">
-        <h2 class="fade-up" style="color:#4287f5; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px;">GIFTS FOR YOU</h2>
-        <p class="fade-up" style="background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; display: inline-block; font-weight: bold; color: #e63946;">OPEN THEM IN ORDER (1 TO 4) 👇</p>
-        <div class="gift-grid fade-up">
-            <div class="gift-wrapper" onclick="openGift(1)">
-                <img class="gift-box" src="gift.jpg">
-                <div class="gift-number">1</div>
-            </div>
-            <div class="gift-wrapper" onclick="openGift(2)">
-                <img class="gift-box" src="gift.jpg">
-                <div class="gift-number">2</div>
-            </div>
-            <div class="gift-wrapper" onclick="openGift(3)">
-                <img class="gift-box" src="gift.jpg">
-                <div class="gift-number">3</div>
-            </div>
-            <div class="gift-wrapper" onclick="openGift(4)">
-                <img class="gift-box" src="gift.jpg">
-                <div class="gift-number">4</div>
-            </div>
+        <h2 style="color:#4287f5;">GIFTS FOR YOU</h2>
+        <p style="font-weight: bold; color: #e63946;">OPEN IN ORDER (1 TO 4) 👇</p>
+        <div class="gift-grid">
+            <div onclick="openGift(1)"><img class="gift-box" src="gift.jpg"><div class="gift-number">1</div></div>
+            <div onclick="openGift(2)"><img class="gift-box" src="gift.jpg"><div class="gift-number">2</div></div>
+            <div onclick="openGift(3)"><img class="gift-box" src="gift.jpg"><div class="gift-number">3</div></div>
+            <div onclick="openGift(4)"><img class="gift-box" src="gift.jpg"><div class="gift-number">4</div></div>
         </div>
     </div>
 
     <div id="screen7" class="screen hidden">
-        <div class="slider-container fade-up">
+        <div class="slider-container">
             <img src="vinyl.png" class="vinyl" onerror="this.style.display='none'">
             <img src="cam1.png" class="polaroid-img" onerror="this.src='cam1.jpg'">
         </div>
-        <p class="fade-up" style="background: rgba(255,255,255,0.8); padding: 8px 15px; border-radius: 10px; margin-top: 25px; font-weight: bold; color: #333;">Some moments are just aesthetic ✨</p>
-        <button class="btn btn-blue fade-up" style="margin-top: 15px;" onclick="playClick(); show(6)">BACK TO GIFTS</button>
+        <p style="background:rgba(255,255,255,0.8); padding:8px 15px; border-radius:10px; margin-top:20px; font-weight:bold;">Some moments are just aesthetic ✨</p>
+        <button class="btn btn-blue" onclick="playClick(); show(6)">BACK</button>
     </div>
 
     <div id="screen8" class="screen hidden">
         <img class="main-media" src="foryou.gif">
-        <br><button class="btn btn-blue fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
+        <button class="btn btn-blue" onclick="playClick(); show(6)">BACK</button>
     </div>
 
     <div id="screen9" class="screen hidden">
-        <p class="fade-up" style="font-size:20px; color:#ddd; font-style:italic; padding:0 20px;">Here's your virtual cake. <br><br>Blow out the candles and make a wish!</p>
-        <img id="cakePic" class="main-media" src="cake_on.png" style="max-width:300px; drop-shadow: 0 0 30px rgba(255,100,100,0.6);">
-        <br><button id="blowBtn" class="btn btn-white fade-up" onclick="playClick(); blowCandles()">BLOW</button>
+        <p style="color:#ddd;">Blow out the candles!</p>
+        <img id="cakePic" src="cake_on.png" style="max-width:220px;">
+        <button id="blowBtn" class="btn btn-white" onclick="playClick(); blowCandles()">BLOW</button>
     </div>
 
     <div id="screen10" class="screen hidden">
-        <img src="cake_off.png" class="main-media" style="max-width:250px; opacity:0.9;">
-        <h1 class="fade-up golden-wish">Happy Birthday</h1>
-        <p class="fade-up" style="font-size:16px; line-height:1.7; color:#ccc; padding: 0 20px; text-align: center;">
-            Happy Birthday, Cutie 🎀!<br><br>
-            Wishing you all the success, happiness, and good vibes this year. Wishing you a day as beautiful as your heart. You deserve every bit of happiness today. I'll always be here cheering for you. Have the most amazing day ever!
+        <img src="cake_off.png" style="max-width:180px;">
+        <h1 class="golden-wish">Happy Birthday</h1>
+        <p style="font-size:14px; color:#ccc; padding:0 10px;">
+            Happy Birthday, Cutie 🎀!<br>
+            Wishing you a day as beautiful as your heart. You deserve every bit of happiness today. Cheering for you always!
         </p>
-        <button class="btn btn-white fade-up" onclick="playClick(); show(6)">BACK TO GIFTS</button>
+        <button class="btn btn-white" onclick="playClick(); show(6)">BACK</button>
     </div>
 
-    <div id="screen11" class="screen hidden" style="justify-content: flex-start; padding-top: 60px;">
-        <h1 class="cursive-wish fade-up">Happy Birthday!</h1>
-        <div class="slider-container fade-up" style="margin-top: 0;">
+    <div id="screen11" class="screen hidden">
+        <h1 class="cursive-wish">Happy Birthday!</h1>
+        <div class="slider-container">
             <img src="vinyl.png" class="vinyl" onerror="this.style.display='none'">
             <img src="cam2.png" class="polaroid-img" onerror="this.src='cam2.jpg'">
         </div>
-        <br><button class="btn fade-up" style="background:white; color:black; margin-top: 30px;" onclick="playClick(); location.reload()">START AGAIN</button>
+        <button class="btn" style="background:white; color:black;" onclick="location.reload()">RESTART</button>
     </div>
 
     <script>
-        // Universal Normal Pop Sound
         function playClick() {
             try {
                 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = audioCtx.createOscillator();
                 let gain = audioCtx.createGain();
                 osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
                 osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.1);
             } catch(e) {}
         }
 
-        // Tic Tac Toe Logic with Smooth Drawing Line
         let b = ["","","","","","","","",""];
         let gameOver = false;
-        
         const lineCoords = {
-            '0,1,2': {x1:'10%', y1:'18.75%', x2:'90%', y2:'18.75%'},
-            '3,4,5': {x1:'10%', y1:'50%', x2:'90%', y2:'50%'},
-            '6,7,8': {x1:'10%', y1:'81.25%', x2:'90%', y2:'81.25%'},
-            '0,3,6': {x1:'18.75%', y1:'10%', x2:'18.75%', y2:'90%'},
-            '1,4,7': {x1:'50%', y1:'10%', x2:'50%', y2:'90%'},
-            '2,5,8': {x1:'81.25%', y1:'10%', x2:'81.25%', y2:'90%'},
-            '0,4,8': {x1:'10%', y1:'10%', x2:'90%', y2:'90%'},
-            '2,4,6': {x1:'90%', y1:'10%', x2:'10%', y2:'90%'}
+            '0,1,2': {x1:'10%', y1:'18%', x2:'90%', y2:'18%'}, '3,4,5': {x1:'10%', y1:'50%', x2:'90%', y2:'50%'},
+            '6,7,8': {x1:'10%', y1:'82%', x2:'90%', y2:'82%'}, '0,3,6': {x1:'18%', y1:'10%', x2:'18%', y2:'90%'},
+            '1,4,7': {x1:'50%', y1:'10%', x2:'50%', y2:'90%'}, '2,5,8': {x1:'82%', y1:'10%', x2:'82%', y2:'90%'},
+            '0,4,8': {x1:'10%', y1:'10%', x2:'90%', y2:'90%'}, '2,4,6': {x1:'90%', y1:'10%', x2:'10%', y2:'90%'}
         };
+        const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
-        const winPatterns = [
-            [0,1,2], [3,4,5], [6,7,8], 
-            [0,3,6], [1,4,7], [2,5,8], 
-            [0,4,8], [2,4,6]           
-        ];
-
-        function checkWin(player) {
+        function checkWin(p) {
             for(let pattern of winPatterns) {
-                if(b[pattern[0]] === player && b[pattern[1]] === player && b[pattern[2]] === player) {
+                if(b[pattern[0]]===p && b[pattern[1]]===p && b[pattern[2]]===p) {
                     let key = pattern.join(',');
-                    let coords = lineCoords[key];
-                    let svg = document.getElementById('win-svg');
-                    let line = document.getElementById('win-line');
-                    
-                    line.setAttribute('x1', coords.x1);
-                    line.setAttribute('y1', coords.y1);
-                    line.setAttribute('x2', coords.x2);
-                    line.setAttribute('y2', coords.y2);
-                    
-                    line.classList.remove('draw-line');
-                    void line.offsetWidth; 
-                    line.classList.add('draw-line');
-                    svg.style.display = 'block';
-                    
+                    let l = document.getElementById('win-line');
+                    l.setAttribute('x1', lineCoords[key].x1); l.setAttribute('y1', lineCoords[key].y1);
+                    l.setAttribute('x2', lineCoords[key].x2); l.setAttribute('y2', lineCoords[key].y2);
+                    l.classList.add('draw-line');
+                    document.getElementById('win-svg').style.display = 'block';
                     return true;
                 }
-            }
-            return false;
-        }
-
-        function checkDraw() {
-            return b.every(cell => cell !== "");
+            } return false;
         }
 
         function move(i){
-            if(b[i] !== "" || gameOver) return; 
-            playClick();
-            
-            b[i] = "X"; 
+            if(b[i] !== "" || gameOver) return;
+            playClick(); b[i] = "X";
             document.querySelectorAll('.cell')[i].innerText = "X";
-            
-            if(checkWin("X")) {
-                gameOver = true;
-                setTimeout(() => { document.getElementById('next1').classList.remove('hidden'); }, 600);
-                return;
-            }
-            
-            if(checkDraw()) {
-                gameOver = true;
-                document.getElementById('retryBtn').classList.remove('hidden');
-                return;
-            }
-            
+            if(checkWin("X")) { gameOver = true; setTimeout(()=>document.getElementById('next1').classList.remove('hidden'), 600); return; }
+            if(b.every(cell=>cell!=="")) { gameOver = true; document.getElementById('retryBtn').classList.remove('hidden'); return; }
             setTimeout(() => {
-                let empty = [];
-                b.forEach((v, idx) => { if(v === "") empty.push(idx); });
-                
+                let empty = []; b.forEach((v, idx) => { if(v === "") empty.push(idx); });
                 if(empty.length > 0) {
-                    let ai = empty[Math.floor(Math.random() * empty.length)];
-                    b[ai] = "O";
-                    let c = document.querySelectorAll('.cell')[ai];
-                    c.innerText = "O";
-                    c.style.color = "#ffb3c6";
-                    
-                    if(checkWin("O") || checkDraw()) {
-                        gameOver = true;
-                        document.getElementById('retryBtn').classList.remove('hidden');
-                    }
+                    let ai = empty[Math.floor(Math.random()*empty.length)];
+                    b[ai] = "O"; let c = document.querySelectorAll('.cell')[ai];
+                    c.innerText = "O"; c.style.color = "#ffb3c6";
+                    if(checkWin("O")) { gameOver = true; document.getElementById('retryBtn').classList.remove('hidden'); }
                 }
-            }, 400); 
+            }, 400);
         }
 
         function resetGame() {
-            playClick();
-            b = ["","","","","","","","",""];
-            gameOver = false;
-            document.querySelectorAll('.cell').forEach(c => { 
-                c.innerText = ""; 
-                c.style.color = "#ff6b9e"; 
-            });
+            playClick(); b = ["","","","","","","","",""]; gameOver = false;
+            document.querySelectorAll('.cell').forEach(c => { c.innerText = ""; c.style.color = "#ff6b9e"; });
             document.getElementById('win-svg').style.display = 'none';
             document.getElementById('next1').classList.add('hidden');
             document.getElementById('retryBtn').classList.add('hidden');
@@ -320,64 +244,28 @@
         }
 
         function shootHearts() {
-            for(let i=0; i<20; i++){
-                let h = document.createElement('div');
-                h.innerHTML = '💖'; h.className = 'heart';
-                h.style.left = Math.random() * 100 + 'vw';
-                h.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 4000);
+            for(let i=0; i<15; i++){
+                let h = document.createElement('div'); h.innerHTML = '💖'; h.className = 'heart';
+                h.style.left = Math.random()*100+'vw'; h.style.animationDuration = (Math.random()*2+2)+'s';
+                document.body.appendChild(h); setTimeout(()=>h.remove(), 3000);
             }
         }
 
-        // BACKGROUND COLOR LOGIC WITH INSTANT CAM-1 LOAD
         function show(s){
             document.querySelectorAll('.screen').forEach(d=>d.classList.add('hidden'));
-            
-            let newScreen = document.getElementById('screen'+s);
-            newScreen.classList.remove('hidden');
-            let elements = newScreen.querySelectorAll('.fade-up, .main-media, .slider-container');
-            elements.forEach(el => {
-                el.style.animation = 'none';
-                el.offsetHeight; 
-                el.style.animation = null; 
-            });
-
-            window.scrollTo(0, 0);
-
-            // Reset sab kuch
-            document.body.className = '';
-            document.body.style.backgroundImage = 'none';
-
-            // Apply specific backgrounds
-            if(s==1 || s==2) {
-                document.body.style.backgroundImage = "url('bg.gif')"; // Original Pink
-            } else if(s==3 || s==4 || s==5) {
-                document.body.classList.add('lilac-bg'); // Soft Lilac
-            } else if(s==6 || s==8) {
-                document.body.classList.add('champagne-bg'); // Premium Cream/Champagne
-            } else if(s==9 || s==10) {
-                document.body.classList.add('black-bg'); // Black for cake
-            } else if(s==7) {
-                document.body.classList.add('cam1-bg'); // Instant Flowers Background
-            } else if(s==11) {
-                document.body.classList.add('red-bg'); // Dark Red finale
-            }
+            document.getElementById('screen'+s).classList.remove('hidden');
+            window.scrollTo(0,0);
+            document.body.className = ''; document.body.style.backgroundImage = 'none';
+            if(s==1||s==2) document.body.style.backgroundImage = "url('bg.gif')";
+            else if(s==3||s==4||s==5) document.body.classList.add('lilac-bg');
+            else if(s==6||s==8) document.body.classList.add('champagne-bg');
+            else if(s==9||s==10) document.body.classList.add('black-bg');
+            else if(s==7) document.body.classList.add('cam1-bg');
+            else if(s==11) document.body.classList.add('red-bg');
         }
 
-        function openGift(giftNumber) {
-            playClick(); 
-            if(giftNumber === 1) show(7); 
-            if(giftNumber === 2) show(8); 
-            if(giftNumber === 3) show(9); 
-            if(giftNumber === 4) show(11); 
-        }
-
-        function blowCandles(){
-            document.getElementById('cakePic').src = "cake_off.png";
-            document.getElementById('blowBtn').classList.add('hidden');
-            setTimeout(() => { show(10); }, 1500);
-        }
+        function openGift(n) { playClick(); if(n==1)show(7); if(n==2)show(8); if(n==3)show(9); if(n==4)show(11); }
+        function blowCandles(){ document.getElementById('cakePic').src = "cake_off.png"; document.getElementById('blowBtn').classList.add('hidden'); setTimeout(()=>show(10), 1000); }
     </script>
 </body>
 </html>
